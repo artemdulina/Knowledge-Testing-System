@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM", "ORM\ORM.csproj", "{5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeTestingSystemTesting", "..\..\KnowledgeTestingSystemTesting\KnowledgeTestingSystemTesting.csproj", "{65CD0A1C-E703-4B68-9EB3-942DE202D911}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{2B74EA14-C95D-43A9-A9B2-C3F5CFE419BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{07135E8E-9A59-4EF8-93D5-8351697C40DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{65CD0A1C-E703-4B68-9EB3-942DE202D911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65CD0A1C-E703-4B68-9EB3-942DE202D911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65CD0A1C-E703-4B68-9EB3-942DE202D911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B74EA14-C95D-43A9-A9B2-C3F5CFE419BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B74EA14-C95D-43A9-A9B2-C3F5CFE419BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B74EA14-C95D-43A9-A9B2-C3F5CFE419BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B74EA14-C95D-43A9-A9B2-C3F5CFE419BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07135E8E-9A59-4EF8-93D5-8351697C40DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07135E8E-9A59-4EF8-93D5-8351697C40DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07135E8E-9A59-4EF8-93D5-8351697C40DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07135E8E-9A59-4EF8-93D5-8351697C40DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
