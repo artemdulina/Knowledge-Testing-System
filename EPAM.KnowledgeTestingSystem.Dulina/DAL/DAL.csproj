@@ -66,6 +66,10 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -84,6 +88,7 @@
     <Compile Include="DataTransferObject\DalUser.cs" />
     <Compile Include="DataTransferObject\IEntity.cs" />
     <Compile Include="Configurations\MapperDomainConfiguration.cs" />
+    <Compile Include="DependencyModules\DalModule.cs" />
     <Compile Include="RepositoryImplementations\GlobalRepository.cs" />
     <Compile Include="RepositoryImplementations\TestRepository.cs" />
     <Compile Include="RepositoryImplementations\UnitOfWork.cs" />
@@ -104,6 +109,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

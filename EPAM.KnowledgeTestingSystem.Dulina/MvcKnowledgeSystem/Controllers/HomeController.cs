@@ -1,26 +1,27 @@
-﻿using BLL.Services;
-using BLL.ServicesImplementations;
-using DAL.RepositoryImplementations;
-using ORM;
+﻿using BLL.Entities;
+using BLL.Services;
 using System.Web.Mvc;
 
 namespace MvcKnowledgeSystem.Controllers
 {
     public class HomeController : Controller
     {
+        IUserService userService;
+
+        public HomeController(IUserService service)
+        {
+            userService = service;
+        }
+
         // GET: Home
         public ActionResult Index()
         {
-            using (var db = new TestingSystemContext())
+            userService.CreateUser(new UserEntity()
             {
-                IUserService service = new UserService(new UnitOfWork(db), new UserRepository(db));
-                service.CreateUser(new BLL.Entities.UserEntity()
-                {
-                    Name = "Albahari"
-                });
-            }
-            return View();
+                Name = "Success!!!"
+            });
 
+            return View();
         }
     }
 }

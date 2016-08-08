@@ -9,6 +9,7 @@ namespace MvcKnowledgeSystem
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            
         }
     }
 }
