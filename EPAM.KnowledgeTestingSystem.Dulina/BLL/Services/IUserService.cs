@@ -8,6 +8,6 @@ namespace BLL.Services
         UserEntity GetUserEntity(int id);
         IEnumerable<UserEntity> GetAllUserEntities();
         void CreateUser(UserEntity user);
-        void DeleteUser(UserEntity user);
+        void DeleteUser(int id);
     }
 }

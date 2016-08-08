@@ -7,16 +7,18 @@ using DAL.Configurations;
 using DAL.DataTransferObject;
 using DAL.Repository;
 using ORM;
+using AutoMapper;
 
 namespace DAL.RepositoryImplementations
 {
-    public class UserRepository : IRepository<DalUser>
+    public class UserRepository : IUserRepository
     {
         private readonly DbContext context;
 
         public UserRepository(DbContext context)
         {
             this.context = context;
+            MapperDomainConfiguration.Configure();
         }
 
         public IEnumerable<DalUser> GetAll()

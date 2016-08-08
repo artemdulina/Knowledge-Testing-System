@@ -1,6 +1,7 @@
 ﻿using DAL.DataTransferObject;
 using ORM;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace DAL.Configurations
 {
@@ -13,7 +14,7 @@ namespace DAL.Configurations
             Configure();
         }
 
-        private static void Configure()
+        public static void Configure()
         {
             MapperInstance = new MapperConfiguration(cfg =>
             {

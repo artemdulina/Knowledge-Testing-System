@@ -9,6 +9,6 @@ namespace DAL.DataTransferObject
 
         public RoleType Type { get; set; }
 
-        public virtual ICollection<DalUser> Users { get; set; }
+        //public virtual ICollection<DalUser> Users { get; set; }
     }
 }

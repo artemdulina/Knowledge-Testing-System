@@ -10,7 +10,7 @@ using ORM;
 
 namespace DAL.RepositoryImplementations
 {
-    public class TestRepository : IRepository<DalTest>
+    public class TestRepository : ITestRepository
     {
         private readonly DbContext context;
 
