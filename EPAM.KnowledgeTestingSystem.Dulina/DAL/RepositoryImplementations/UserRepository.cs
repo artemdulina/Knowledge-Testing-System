@@ -7,7 +7,6 @@ using DAL.Configurations;
 using DAL.DataTransferObject;
 using DAL.Repository;
 using ORM;
-using AutoMapper;
 
 namespace DAL.RepositoryImplementations
 {
@@ -23,7 +22,7 @@ namespace DAL.RepositoryImplementations
 
         public IEnumerable<DalUser> GetAll()
         {
-            return context.Set<User>().AsEnumerable().Select(user =>
+            return context.Set<User>().ToList().Select(user =>
             MapperDomainConfiguration.MapperInstance.Map<User, DalUser>(user)
             );
         }
@@ -64,6 +63,16 @@ namespace DAL.RepositoryImplementations
 
             context.Set<User>().Attach(user);
             context.Entry(user).State = EntityState.Modified;
+        }
+
+        public DalUser Get(string name)
+        {
+            User found = context.Set<User>().FirstOrDefault(user => user.Username == name);
+
+            if (found == null)
+                return null;
+
+            return MapperDomainConfiguration.MapperInstance.Map<User, DalUser>(found);
         }
     }
 }

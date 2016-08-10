@@ -63,5 +63,10 @@ namespace DAL.RepositoryImplementations
 
             context.Entry(test).State = EntityState.Modified;
         }
+
+        public DalTest Get(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

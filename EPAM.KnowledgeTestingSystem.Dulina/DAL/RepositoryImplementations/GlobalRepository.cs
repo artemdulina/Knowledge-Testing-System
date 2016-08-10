@@ -28,6 +28,11 @@ namespace DAL.RepositoryImplementations
             throw new NotImplementedException();
         }
 
+        public TEntity Get(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<TEntity> GetAll()
         {
             throw new NotImplementedException();

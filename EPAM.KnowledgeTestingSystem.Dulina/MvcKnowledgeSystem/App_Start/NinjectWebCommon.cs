@@ -10,7 +10,6 @@ namespace MvcKnowledgeSystem.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using DAL.DependencyModules;
     using BLL.DependencyModules;
 
     public static class NinjectWebCommon

@@ -1,7 +1,19 @@
-﻿
-@{
-    ViewBag.Title = "Index Start Page";
+﻿@{
+//ViewBag.Title = "Index Start Page";
 }
 
-<h2>Index</h2>
+<h2>Home Index</h2>
+<div>
+    <ul>
+        @foreach (var user in Model)
+            {
+            <li>@user.Username</li>
+        }
+    </ul>
+</div>
+<h2>@ViewData["timer"]</h2>
+<h2>@ViewData["timer"]</h2>
+<h2>@ViewData["timer"]</h2>
+<h2>@Session["sessionobject"]</h2>
+<h2>@TempData["name"]</h2>
 

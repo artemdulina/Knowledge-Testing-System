@@ -38,6 +38,11 @@ namespace BLL.ServicesImplementations
                 Map<IEnumerable<DalUser>, IEnumerable<UserEntity>>(userRepository.GetAll());
         }
 
+        public UserEntity GetUserEntity(string name)
+        {
+            return MapperBusinessConfiguration.MapperInstance.Map<DalUser, UserEntity>(userRepository.Get(name));
+        }
+
         public UserEntity GetUserEntity(int id)
         {
             return MapperBusinessConfiguration.MapperInstance.Map<DalUser, UserEntity>(userRepository.GetById(id));
