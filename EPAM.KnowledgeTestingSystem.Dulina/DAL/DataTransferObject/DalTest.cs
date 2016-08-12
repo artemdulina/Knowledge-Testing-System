@@ -11,7 +11,9 @@ namespace DAL.DataTransferObject
 
         public string Topic { get; set; }
 
-        public virtual ICollection<DalQuestion> Questions { get; set; }
+        public ICollection<DalUser> Users { get; set; }
+
+        public ICollection<DalQuestion> Questions { get; set; }
 
         public TimeSpan TimeLimit { get; set; }
     }

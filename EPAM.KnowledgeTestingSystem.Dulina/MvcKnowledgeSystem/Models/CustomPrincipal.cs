@@ -4,11 +4,14 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using BLL.Entities;
+using NLog;
 
 namespace MvcKnowledgeSystem.Models
 {
     public class CustomPrincipal : IPrincipal
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,15 +20,28 @@ namespace MvcKnowledgeSystem.Models
 
         public CustomPrincipal(string userName)
         {
-            Identity = new GenericIdentity(userName);
+            if (userName == "Guest")
+            {
+                Identity = new GuestIdentity();
+            }
+            else
+            {
+                Identity = new GenericIdentity(userName);
+            }
         }
 
-        public bool IsInRole(string role)
+        public bool IsInRole(string roles)
         {
-            /*if (roles.Any(r => roles.Contains(role)))
+            return false;
+        }
+
+        public bool IsInRole(RoleType[] roles)
+        {
+            if (roles.Any(r => this.roles.Select(s => s.Type).Contains(r)))
             {
                 return true;
-            }*/
+            }
+
             return false;
         }
     }

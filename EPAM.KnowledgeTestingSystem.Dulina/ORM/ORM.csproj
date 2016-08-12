@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201608092003239_userentityedit.Designer.cs">
       <DependentUpon>201608092003239_userentityedit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608121456456_UpdataTest.cs" />
+    <Compile Include="Migrations\201608121456456_UpdataTest.Designer.cs">
+      <DependentUpon>201608121456456_UpdataTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="Role.cs" />
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608092003239_userentityedit.resx">
       <DependentUpon>201608092003239_userentityedit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608121456456_UpdataTest.resx">
+      <DependentUpon>201608121456456_UpdataTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

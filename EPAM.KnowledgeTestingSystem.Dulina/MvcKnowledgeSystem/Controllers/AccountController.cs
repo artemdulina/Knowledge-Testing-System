@@ -23,9 +23,7 @@ namespace MvcKnowledgeSystem.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            CustomPrincipal user = User;
-            //HttpContext.User = new CustomPrincipal("ArtemDulina") { FirstName = "Artem" };
-            return View(User);
+            return View();
         }
 
         public ActionResult Login()
@@ -55,7 +53,7 @@ namespace MvcKnowledgeSystem.Controllers
                         string userData = JsonConvert.SerializeObject(serializeModel);
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                         1,
-                        user.Email,
+                        user.Username,
                         DateTime.Now,
                         DateTime.Now.AddMinutes(15),
                         false, //pass here true, if you want to implement remember me functionality
@@ -66,19 +64,19 @@ namespace MvcKnowledgeSystem.Controllers
                         Response.Cookies.Add(faCookie);
 
                         //Redirect(returnUrl);
-                        //HttpContext.User = new CustomPrincipal("ArtemDulina") { FirstName = "Artem" };
-                        foreach (var role in roles)
-                        {
-                            if (role.Type == RoleType.Administrator)
-                            {
-                                return RedirectToAction("Index", "Account");
-                            }
-                        }
+
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
             ModelState.AddModelError("", "Incorrect username and/or password");
             return View(model);
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

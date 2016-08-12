@@ -21,7 +21,7 @@ namespace DAL.RepositoryImplementations
 
         public IEnumerable<DalTest> GetAll()
         {
-            return context.Set<Test>().AsEnumerable().Select(test =>
+            return context.Set<Test>().ToList().Select(test =>
             MapperDomainConfiguration.MapperInstance.Map<Test, DalTest>(test)
             );
         }

@@ -16,6 +16,6 @@ namespace DAL.DataTransferObject
 
         public string LastName { get; set; }
 
-        public virtual ICollection<DalRole> Roles { get; set; }
+        public ICollection<DalRole> Roles { get; set; }
     }
 }

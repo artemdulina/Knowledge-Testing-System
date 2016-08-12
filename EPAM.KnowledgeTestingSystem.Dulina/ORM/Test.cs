@@ -11,6 +11,8 @@ namespace ORM
 
         public string Topic { get; set; }
 
+        public virtual ICollection<User> Users { get; set; }
+
         public virtual ICollection<Question> Questions { get; set; }
 
         public TimeSpan TimeLimit { get; set; }

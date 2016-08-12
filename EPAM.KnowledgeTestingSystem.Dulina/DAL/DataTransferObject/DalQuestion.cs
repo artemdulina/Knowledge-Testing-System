@@ -10,6 +10,6 @@ namespace DAL.DataTransferObject
 
         public string Text { get; set; }
 
-        public virtual ICollection<DalAnswer> Answers { get; set; }
+        public ICollection<DalAnswer> Answers { get; set; }
     }
 }

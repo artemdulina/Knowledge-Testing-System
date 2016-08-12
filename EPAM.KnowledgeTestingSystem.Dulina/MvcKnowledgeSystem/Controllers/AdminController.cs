@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using MvcKnowledgeSystem.Models;
 using BLL.Entities;
 
 namespace MvcKnowledgeSystem.Controllers
 {
-
+    [CustomAuthorize(Roles = new[] { RoleType.Administrator })]
     public class AdminController : BaseController
     {
-        // GET: Admin
+        
         public ActionResult Index()
         {
             return View();

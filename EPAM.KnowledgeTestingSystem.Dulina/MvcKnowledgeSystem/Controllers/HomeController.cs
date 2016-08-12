@@ -1,6 +1,7 @@
 ﻿using BLL.Entities;
 using BLL.Services;
 using NLog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Mvc;
@@ -10,43 +11,64 @@ namespace MvcKnowledgeSystem.Controllers
     public class HomeController : BaseController
     {
         IUserService userService;
+        ITestService testService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public HomeController(IUserService service)
+        public HomeController(ITestService service)
         {
-            userService = service;
+            testService = service;
         }
 
-        public ActionResult Some()
+        public ActionResult About()
         {
-            TempData["name"] = HttpContext.User.Identity.Name;
             return View();
         }
 
         // GET: Home
         public ActionResult Index()
         {
-            logger.Info("HomeIndex works");
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            userService.CreateUser(new UserEntity()
+            /*userService.CreateUser(new UserEntity()
             {
                 //Username = "SuperUser",
-                Username = "nbaworld",
-                Email = "artem.dulina@gmail.com",
-                FirstName = "Albahari",
+                Username = "guest",
+                Email = "guest@gmail.com",
+                FirstName = "Troelsen",
                 LastName = "Petrovich",
-                Password = "789123",
-                Roles = new List<RoleEntity>() { new RoleEntity() { Type = RoleType.Administrator } }
+                Password = "guest",
+                Roles = new List<RoleEntity>() { new RoleEntity() { Type = RoleType.Guest } }
+            });*/
+            List<AnswerEntity> answers = new List<AnswerEntity>();
+            answers.Add(new AnswerEntity()
+            {
+                Text = "C# word",
+                IsCorrect = true
             });
-            IEnumerable<UserEntity> users = userService.GetAllUserEntities();
-            timer.Stop();
+            answers.Add(new AnswerEntity()
+            {
+                Text = "Don't know",
+                IsCorrect = false
+            });
+            List<QuestionEntity> questions = new List<QuestionEntity>();
+            questions.Add(new QuestionEntity()
+            {
+                Text = "What is static?",
+                Answers = answers
+            });
+            /*testService.CreateTest(new TestEntity()
+            {
+                Title = "c# Test",
+                Topic = "SuperTest",
+                TimeLimit = new TimeSpan(0, 10, 0),
+                Questions = questions
+            });*/
+            //IEnumerable<UserEntity> users = userService.GetAllUserEntities();
+            IEnumerable<TestEntity> tests = testService.GetAllTestEntities();
             ViewData["timer"] = "ViewDatas";
             TempData["timer"] = "TempDatas";
             ViewBag.Message = "ViewBag";
             Session.Add("sessionobject", 88005553535);
             //
-            return View(users);
+            return View(tests);
             //return RedirectToAction("Some");
         }
     }

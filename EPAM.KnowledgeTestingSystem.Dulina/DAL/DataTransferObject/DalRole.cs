@@ -8,7 +8,5 @@ namespace DAL.DataTransferObject
         public int Id { get; set; }
 
         public RoleType Type { get; set; }
-
-        //public virtual ICollection<DalUser> Users { get; set; }
     }
 }

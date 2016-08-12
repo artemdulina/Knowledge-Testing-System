@@ -13,6 +13,7 @@ namespace DAL.DependencyModules
         {
             Bind<DbContext>().To<TestingSystemContext>().InRequestScope();
             Bind<IUserRepository>().To<UserRepository>();
+            Bind<ITestRepository>().To<TestRepository>();
             Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
         }
     }

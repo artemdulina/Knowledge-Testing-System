@@ -12,6 +12,7 @@ namespace BLL.DependencyModules
         {
             Kernel.Load(new DalModule());
             Bind<IUserService>().To<UserService>();
+            Bind<ITestService>().To<TestService>();
         }
     }
 }

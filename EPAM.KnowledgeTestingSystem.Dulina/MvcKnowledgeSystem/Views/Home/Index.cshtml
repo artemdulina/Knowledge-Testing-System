@@ -1,19 +1,29 @@
-﻿@{
+﻿@using BLL.Entities
+@model IEnumerable<TestEntity>
+@{
 //ViewBag.Title = "Index Start Page";
 }
 
-<h2>Home Index</h2>
-<div>
-    <ul>
-        @foreach (var user in Model)
+<div class="container">
+    <h2>Available Tests</h2>
+    <p>You can choose any of this tests to pass:</p>
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Topic</th>
+                <th>TimeLimit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var test in Model)
             {
-            <li>@user.Username</li>
-        }
-    </ul>
+                <tr>
+                    <td>@test.Title</td>
+                    <td>@test.Topic</td>
+                    <td>@test.TimeLimit</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<h2>@ViewData["timer"]</h2>
-<h2>@ViewData["timer"]</h2>
-<h2>@ViewData["timer"]</h2>
-<h2>@Session["sessionobject"]</h2>
-<h2>@TempData["name"]</h2>
-

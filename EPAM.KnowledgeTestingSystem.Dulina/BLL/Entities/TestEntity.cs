@@ -12,7 +12,9 @@ namespace BLL.Entities
 
         public string Topic { get; set; }
 
-        public virtual ICollection<QuestionEntity> Questions { get; set; }
+        public ICollection<UserEntity> Users { get; set; }
+
+        public ICollection<QuestionEntity> Questions { get; set; }
 
         public TimeSpan TimeLimit { get; set; }
     }

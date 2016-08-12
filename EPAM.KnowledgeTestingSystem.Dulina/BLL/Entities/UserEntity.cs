@@ -17,6 +17,6 @@ namespace BLL.Entities
 
         public string LastName { get; set; }
 
-        public virtual ICollection<RoleEntity> Roles { get; set; }
+        public ICollection<RoleEntity> Roles { get; set; }
     }
 }
