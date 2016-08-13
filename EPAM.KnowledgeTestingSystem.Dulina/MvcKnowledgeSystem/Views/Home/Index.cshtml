@@ -1,13 +1,13 @@
 ﻿@using BLL.Entities
 @model IEnumerable<TestEntity>
 @{
-//ViewBag.Title = "Index Start Page";
+    ViewBag.Title = "Knowledge Testing System";
 }
 
 <div class="container">
     <h2>Available Tests</h2>
     <p>You can choose any of this tests to pass:</p>
-    <table class="table table-hover table-condensed">
+    <table class="table table-hover table-condensed table-bordered">
         <thead>
             <tr>
                 <th>Title</th>
@@ -18,12 +18,29 @@
         <tbody>
             @foreach (var test in Model)
             {
-                <tr>
-                    <td>@test.Title</td>
-                    <td>@test.Topic</td>
-                    <td>@test.TimeLimit</td>
+                <tr class="trr">
+                    <td><a href="/Test/Info/@test.Id">@test.Title</a></td>
+                    <td><a href="/Test/Info/@test.Id">@test.Topic</a></td>
+                    <td><a href="/Test/Info/@test.Id">@test.TimeLimit</a></td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<style>
+    a {
+        display: block;
+        padding: 1px;
+        color: black;
+    }
+
+        a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+    .trr:hover td {
+        background-color: coral;
+    }
+</style>

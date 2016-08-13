@@ -10,8 +10,8 @@ namespace MvcKnowledgeSystem.Controllers
 {
     public class HomeController : BaseController
     {
-        IUserService userService;
-        ITestService testService;
+        private IUserService userService;
+        private ITestService testService;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public HomeController(ITestService service)
@@ -27,6 +27,7 @@ namespace MvcKnowledgeSystem.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //return RedirectToAction("Index", "Test");
             /*userService.CreateUser(new UserEntity()
             {
                 //Username = "SuperUser",

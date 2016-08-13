@@ -13,7 +13,7 @@ namespace MvcKnowledgeSystem.Controllers
 {
     public class AccountController : BaseController
     {
-        IUserService userService;
+        private IUserService userService;
 
         public AccountController(IUserService service)
         {

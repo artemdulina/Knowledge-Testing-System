@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BLL.Entities;
+using BLL.Services;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +11,31 @@ namespace MvcKnowledgeSystem.Controllers
 {
     public class TestController : Controller
     {
-        // GET: Test
+        private ITestService testService;
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        public TestController(ITestService service)
+        {
+            testService = service;
+        }
+
         public ActionResult Index()
         {
+            //IEnumerable<TestEntity> tests = testService.GetAllTestEntities();
+
             return View();
         }
 
-        public ActionResult Test(int? id)
+        public ActionResult Info(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            TestEntity test = testService.GetTestEntity(id.GetValueOrDefault());
+            return View(test);
         }
     }
 }
