@@ -1,10 +1,10 @@
-﻿using BLL.Entities;
+﻿using System;
+using BLL.Entities;
 using BLL.Services;
-using NLog;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Web.Mvc;
+using MvcKnowledgeSystem.Models;
 
 namespace MvcKnowledgeSystem.Controllers
 {
@@ -12,7 +12,6 @@ namespace MvcKnowledgeSystem.Controllers
     {
         private IUserService userService;
         private ITestService testService;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public HomeController(ITestService service)
         {
@@ -25,7 +24,7 @@ namespace MvcKnowledgeSystem.Controllers
         }
 
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             //return RedirectToAction("Index", "Test");
             /*userService.CreateUser(new UserEntity()
@@ -55,22 +54,43 @@ namespace MvcKnowledgeSystem.Controllers
                 Text = "What is static?",
                 Answers = answers
             });
+            answers.Clear();
+            answers.Add(new AnswerEntity()
+            {
+                Text = "Access modifier",
+                IsCorrect = true
+            });
+            answers.Add(new AnswerEntity()
+            {
+                Text = "What?",
+                IsCorrect = false
+            });
+            questions.Add(new QuestionEntity()
+            {
+                Text = "What is public?",
+                Answers = answers
+            });
             /*testService.CreateTest(new TestEntity()
             {
-                Title = "c# Test",
-                Topic = "SuperTest",
-                TimeLimit = new TimeSpan(0, 10, 0),
+                Title = "c# New Test Next",
+                Topic = "Programming Next",
+                TimeLimit = new TimeSpan(0, 2, 0),
                 Questions = questions
             });*/
             //IEnumerable<UserEntity> users = userService.GetAllUserEntities();
-            IEnumerable<TestEntity> tests = testService.GetAllTestEntities();
-            ViewData["timer"] = "ViewDatas";
-            TempData["timer"] = "TempDatas";
-            ViewBag.Message = "ViewBag";
-            Session.Add("sessionobject", 88005553535);
-            //
-            return View(tests);
-            //return RedirectToAction("Some");
+            int testsOnPage = 10;
+            IEnumerable<TestEntity> tests = testService.GetAllTestEntities().ToList();
+            IEnumerable<TestEntity> partTests = tests.Skip((page - 1) * testsOnPage).Take(testsOnPage);
+
+            PageInformation pageInfo = new PageInformation
+            {
+                TotalObjects = tests.Count(),
+                CurrentPage = page,
+                ObjectsOnPage = testsOnPage
+            };
+
+            TestsViewModel testModel = new TestsViewModel { PageInfo = pageInfo, Tests = partTests };
+            return View(testModel);
         }
     }
 }

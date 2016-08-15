@@ -9,7 +9,7 @@ namespace MvcKnowledgeSystem.Controllers
 {
     public class BaseController : Controller
     {
-        protected virtual new CustomPrincipal User
+        protected new virtual CustomPrincipal User
         {
             get
             {

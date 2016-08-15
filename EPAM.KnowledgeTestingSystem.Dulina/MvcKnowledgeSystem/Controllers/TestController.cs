@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcKnowledgeSystem.Models;
 
 namespace MvcKnowledgeSystem.Controllers
 {
@@ -28,6 +29,18 @@ namespace MvcKnowledgeSystem.Controllers
         }
 
         public ActionResult Info(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            TestEntity test = testService.GetTestEntity(id.GetValueOrDefault());
+            return View(test);
+        }
+
+        [CustomAuthorize]
+        public ActionResult Start(int? id)
         {
             if (id == null)
             {

@@ -63,12 +63,19 @@
         @RenderBody()
     </div>
 
-    <div class="foo">
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Knowledge Testing</p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p class="text-muted">Copyright &copy; @DateTime.Now.Year Knowledge System. All rights reserved.</p>
+    </footer>
+
+    <style>
+        .footer {
+            width: 100%;
+            position: relative;
+            height: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+    </style>
 
     <script src="~/Scripts/jquery-3.1.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

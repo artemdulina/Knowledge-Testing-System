@@ -1,5 +1,6 @@
 ﻿@using BLL.Entities
-@model IEnumerable<TestEntity>
+@using MvcKnowledgeSystem.Models
+@model TestsViewModel
 @{
     ViewBag.Title = "Knowledge Testing System";
 }
@@ -16,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var test in Model)
+            @foreach (var test in Model.Tests)
             {
                 <tr class="trr">
                     <td><a href="/Test/Info/@test.Id">@test.Title</a></td>
@@ -26,6 +27,37 @@
             }
         </tbody>
     </table>
+    <nav aria-label="Page navigation" style="margin-left: 45%;">
+        <ul class="pagination">
+            @if (Model.PageInfo.CurrentPage != 1)
+            {
+                <li>
+                    <a href="/?page=@(Model.PageInfo.CurrentPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
+            {
+                if (i != Model.PageInfo.CurrentPage)
+                {
+                    <li><a href="/?page=@i">@i</a></li>
+                }
+                else
+                {
+                    <li class="active"><a href="/?page=@i">@i</a></li>
+                }
+            }
+            @if (Model.PageInfo.CurrentPage != Model.PageInfo.TotalPages)
+            {
+                <li>
+                    <a href="/?page=@(Model.PageInfo.CurrentPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>
 
 <style>

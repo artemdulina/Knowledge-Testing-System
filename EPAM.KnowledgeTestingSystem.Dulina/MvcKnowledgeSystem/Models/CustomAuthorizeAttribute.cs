@@ -27,12 +27,18 @@ namespace MvcKnowledgeSystem.Models
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            logger.Info("CustomAuthorizeAttribute.OnAuthorization");
-            if (!CurrentUser.IsInRole(Roles))
+            if (Roles != null)
             {
-                logger.Info("!CurrentUser.IsInRole(Roles)");
+                if (!CurrentUser.IsInRole(Roles))
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                        new RouteValueDictionary(new { controller = "Account", action = "Login" }));
+                }
+            }
+            else if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
                 filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary(new { controller = "Account", action = "Login" }));
+                        new RouteValueDictionary(new { controller = "Account", action = "Login" }));
             }
         }
     }
