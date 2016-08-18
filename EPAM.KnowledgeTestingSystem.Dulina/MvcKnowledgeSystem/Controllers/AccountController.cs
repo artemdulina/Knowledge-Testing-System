@@ -63,7 +63,10 @@ namespace MvcKnowledgeSystem.Controllers
                         HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                         Response.Cookies.Add(faCookie);
 
-                        //Redirect(returnUrl);
+                        //if (!string.IsNullOrEmpty(returnUrl))
+                        //{
+                        //    return Redirect(returnUrl);
+                        //}
 
                         return RedirectToAction("Index", "Home");
                     }
@@ -76,7 +79,7 @@ namespace MvcKnowledgeSystem.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

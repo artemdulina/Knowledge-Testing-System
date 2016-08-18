@@ -50,5 +50,13 @@ namespace MvcKnowledgeSystem.Controllers
             TestEntity test = testService.GetTestEntity(id.GetValueOrDefault());
             return View(test);
         }
+
+        [HttpPost]
+        public ActionResult PostSome(int num = 0, string str = "default")
+        {
+            TempData["numb"] = num;
+            TempData["stri"] = str;
+            return View();
+        }
     }
 }

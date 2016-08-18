@@ -226,6 +226,7 @@
     <Content Include="Views\Test\Info.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Start.cshtml" />
+    <Content Include="Views\Test\PostSome.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

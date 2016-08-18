@@ -4,5 +4,89 @@
     ViewBag.Title = "Start";
 }
 
-<h2>Test/Start</h2>
 
+<div class="panel panel-primary" style="margin-top: 10px;">
+    <div class="panel-heading" onclick="hideQuestion()">
+        <p align="center">
+            What is string?
+            <span class="glyphicon glyphicon-minus pull-right"></span>
+        </p>
+    </div>
+    <div id="answsection">
+        <pre id="q">
+        int x = 6;
+        if (Roles != null)
+        {
+            if (!CurrentUser.IsInRole(Roles))
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                new RouteValueDictionary(new { controller = "Account", action = "Login" }));
+            }
+        }
+    </pre>
+        <div id="st" class="input-group" style="margin-left: auto; margin-right: auto;">
+            <input type="checkbox" aria-label="...">I don't know correct answer<br>
+            <input type="checkbox" aria-label="...">Wtf<br>
+            <input type="checkbox" aria-label="...">AAAAAAAAAAAAAAAAAA
+        </div>
+        <div align="center">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-success" onclick="hideQuestionConfident()">Answer</button>
+                <button type="button" class="btn btn-warning" onclick="hideQuestionDoubtfully()">Answer doubtfully</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('bdi').style.background = 'darkgrey';
+    var toggleWholeQuestion = true;
+    function hideQuestion() {
+        if (toggleWholeQuestion) {
+            document.body.querySelector("#answsection").hidden = toggleWholeQuestion;
+            /*document.body.querySelector("#q").hidden = toggleWholeQuestion;
+            /document.body.querySelector("#st").className += ' hidden';
+            document.body.querySelector("#btn1").hidden = toggleWholeQuestion;
+            document.body.querySelector("#btn2").hidden = toggleWholeQuestion;*/
+            toggleWholeQuestion = false;
+        } else {
+            document.body.querySelector("#answsection").hidden = toggleWholeQuestion;
+            /*document.body.querySelector("#q").hidden = toggleWholeQuestion;
+            var input = document.body.querySelector("#st");
+            input.className = input.className.replace(' hidden', '');
+            document.body.querySelector("#btn1").hidden = toggleWholeQuestion;
+            document.body.querySelector("#btn2").hidden = toggleWholeQuestion;*/
+            toggleWholeQuestion = true;
+        }
+    }
+
+    function hideQuestionConfident() {
+        hideQuestion();
+        document.body.querySelector(".panel-heading").style.backgroundColor = 'green';
+        //var t = document.body.querySelector(".panel-heading").style.cssText;
+    }
+
+    function hideQuestionDoubtfully() {
+        hideQuestion();
+        document.body.querySelector(".panel-heading").style.backgroundColor = 'gold';
+        //document.body.querySelector(".panel-heading").style.css
+    }
+</script>
+
+
+<style>
+    .panel-heading {
+        background-color: blue;
+    }
+
+        .panel-heading:hover {
+            background-color: cornflowerblue;
+            cursor: pointer;
+        }
+
+    .glyphicon {
+        color: white;
+        padding: 6px 12px;
+    }
+</style>

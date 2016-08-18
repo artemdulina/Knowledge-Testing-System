@@ -89,6 +89,11 @@ namespace MvcKnowledgeSystem.Controllers
                 ObjectsOnPage = testsOnPage
             };
 
+            if (page > pageInfo.TotalPages || page <= 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             TestsViewModel testModel = new TestsViewModel { PageInfo = pageInfo, Tests = partTests };
             return View(testModel);
         }
