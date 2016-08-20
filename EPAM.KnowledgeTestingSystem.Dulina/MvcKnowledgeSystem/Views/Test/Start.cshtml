@@ -4,16 +4,18 @@
     ViewBag.Title = "Start";
 }
 
-
-<div class="panel panel-primary" style="margin-top: 10px;">
-    <div class="panel-heading" onclick="hideQuestion()">
-        <p align="center">
-            What is string?
-            <span class="glyphicon glyphicon-minus pull-right"></span>
-        </p>
-    </div>
-    <div id="answsection">
-        <pre id="q">
+<form action="/Test/CheckTestAnswers" method="post">
+    @for (int i = 0; i < Model.Questions.Count; i++)
+    {
+        <div class="panel panel-primary" style="margin-top: 10px;">
+            <div id="ph@(i)" class="panel-heading" onclick="hideQuestion(@i)">
+                <p align="center">
+                    @Model.Questions[i].Text
+                    <span id="gly@(i)" class="glyphicon glyphicon-minus pull-right"></span>
+                </p>
+            </div>
+            <div id="as@(i)">
+                <pre id="q">
         int x = 6;
         if (Roles != null)
         {
@@ -24,52 +26,80 @@
             }
         }
     </pre>
-        <div id="st" class="input-group" style="margin-left: auto; margin-right: auto;">
-            <input type="checkbox" aria-label="...">I don't know correct answer<br>
-            <input type="checkbox" aria-label="...">Wtf<br>
-            <input type="checkbox" aria-label="...">AAAAAAAAAAAAAAAAAA
-        </div>
-        <div align="center">
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-success" onclick="hideQuestionConfident()">Answer</button>
-                <button type="button" class="btn btn-warning" onclick="hideQuestionDoubtfully()">Answer doubtfully</button>
+                <div id="st" class="input-group" style="margin-left: auto; margin-right: auto;">
+                    @for (int j = 0; j < Model.Questions[i].Answers.Count; j++)
+                    {
+                        <input type="checkbox" name="[@i].Answers[@j]" value="true">@(Model.Questions[i].Answers[j].Text)<br>
+                        <input type="hidden" value="false" name="[@i].Answers[@j]" />
+                    }
+                </div>
+                <div align="center">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-success" onclick="hideQuestionConfident(@i)">Answer</button>
+                        <button type="button" class="btn btn-warning" onclick="hideQuestionDoubtfully(@i)">Answer doubtfully</button>
+                    </div>
+                </div>
             </div>
         </div>
+    }
+    <input type="hidden" value="@ViewData["id"]" name="testId" />
+    <div align="center">
+        <input type="submit" class="btn btn-success" value="Finish Test">
     </div>
-</div>
+</form>
 
+@*<div align="center">
+    <form action="/Test/PostSome" method="post">
+        <input type="checkbox" name="[0].Answers[0]" value="true">One<br>
+        <input type="hidden" value="false" name="[0].Answers[0]" />
+
+        <input type="checkbox" name="[1].Answers[0]" value="true">Two<br>
+        <input type="hidden" value="false" name="[1].Answers[0]"/>
+
+        <input type="hidden" value="4" name="testId" />
+        <input type="submit" class="btn btn-success" value="Post Some">
+    </form>
+</div>*@
 
 <script>
     document.getElementById('bdi').style.background = 'darkgrey';
-    var toggleWholeQuestion = true;
-    function hideQuestion() {
-        if (toggleWholeQuestion) {
-            document.body.querySelector("#answsection").hidden = toggleWholeQuestion;
+    var toggleWholeQuestion = new Array(@Model.Questions.Count);
+    for (var i = 0; i < toggleWholeQuestion.length; i++) {
+        toggleWholeQuestion[i] = true;
+    }
+    function hideQuestion(id) {
+        var glyphicon;
+        if (toggleWholeQuestion[id]) {
+            document.body.querySelector("#as" + id).hidden = toggleWholeQuestion[id];
+            glyphicon = document.body.querySelector("#gly" + id);
+            glyphicon.className = glyphicon.className.replace('glyphicon-minus', 'glyphicon-plus');
             /*document.body.querySelector("#q").hidden = toggleWholeQuestion;
             /document.body.querySelector("#st").className += ' hidden';
             document.body.querySelector("#btn1").hidden = toggleWholeQuestion;
             document.body.querySelector("#btn2").hidden = toggleWholeQuestion;*/
-            toggleWholeQuestion = false;
+            toggleWholeQuestion[id] = false;
         } else {
-            document.body.querySelector("#answsection").hidden = toggleWholeQuestion;
+            document.body.querySelector("#as" + id).hidden = toggleWholeQuestion[id];
+            glyphicon = document.body.querySelector("#gly" + id);
+            glyphicon.className = glyphicon.className.replace('glyphicon-plus', 'glyphicon-minus');
             /*document.body.querySelector("#q").hidden = toggleWholeQuestion;
             var input = document.body.querySelector("#st");
             input.className = input.className.replace(' hidden', '');
             document.body.querySelector("#btn1").hidden = toggleWholeQuestion;
             document.body.querySelector("#btn2").hidden = toggleWholeQuestion;*/
-            toggleWholeQuestion = true;
+            toggleWholeQuestion[id] = true;
         }
     }
 
-    function hideQuestionConfident() {
-        hideQuestion();
-        document.body.querySelector(".panel-heading").style.backgroundColor = 'green';
+    function hideQuestionConfident(id) {
+        hideQuestion(id);
+        document.body.querySelector("#ph" + id).style.backgroundColor = 'green';
         //var t = document.body.querySelector(".panel-heading").style.cssText;
     }
 
-    function hideQuestionDoubtfully() {
-        hideQuestion();
-        document.body.querySelector(".panel-heading").style.backgroundColor = 'gold';
+    function hideQuestionDoubtfully(id) {
+        hideQuestion(id);
+        document.body.querySelector("#ph" + id).style.backgroundColor = 'gold';
         //document.body.querySelector(".panel-heading").style.css
     }
 </script>

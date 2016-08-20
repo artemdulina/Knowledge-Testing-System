@@ -202,6 +202,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswersViewModel.cs" />
     <Compile Include="Models\BaseViewPage.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\GuestIdentity.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PageInformation.cs" />
+    <Compile Include="Models\TestStatistics.cs" />
     <Compile Include="Models\TestsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -227,6 +229,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Start.cshtml" />
     <Content Include="Views\Test\PostSome.cshtml" />
+    <Content Include="Views\Test\CheckTestAnswers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

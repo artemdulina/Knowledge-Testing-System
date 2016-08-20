@@ -14,7 +14,7 @@ namespace BLL.Entities
 
         public ICollection<UserEntity> Users { get; set; }
 
-        public ICollection<QuestionEntity> Questions { get; set; }
+        public IList<QuestionEntity> Questions { get; set; }
 
         public TimeSpan TimeLimit { get; set; }
     }

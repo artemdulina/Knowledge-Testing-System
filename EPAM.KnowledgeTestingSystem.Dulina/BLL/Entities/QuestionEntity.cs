@@ -11,6 +11,6 @@ namespace BLL.Entities
 
         public string Text { get; set; }
 
-        public ICollection<AnswerEntity> Answers { get; set; }
+        public IList<AnswerEntity> Answers { get; set; }
     }
 }

@@ -48,19 +48,21 @@ namespace MvcKnowledgeSystem.Controllers
                 Text = "Don't know",
                 IsCorrect = false
             });
-            List<QuestionEntity> questions = new List<QuestionEntity>();
-            questions.Add(new QuestionEntity()
+            List<QuestionEntity> questions = new List<QuestionEntity>
             {
-                Text = "What is static?",
-                Answers = answers
-            });
-            answers.Clear();
-            answers.Add(new AnswerEntity()
+                new QuestionEntity()
+                {
+                    Text = "What is static?",
+                    Answers = answers
+                }
+            };
+            List<AnswerEntity> answerst = new List<AnswerEntity>();
+            answerst.Add(new AnswerEntity()
             {
                 Text = "Access modifier",
                 IsCorrect = true
             });
-            answers.Add(new AnswerEntity()
+            answerst.Add(new AnswerEntity()
             {
                 Text = "What?",
                 IsCorrect = false
@@ -68,11 +70,11 @@ namespace MvcKnowledgeSystem.Controllers
             questions.Add(new QuestionEntity()
             {
                 Text = "What is public?",
-                Answers = answers
+                Answers = answerst
             });
             /*testService.CreateTest(new TestEntity()
             {
-                Title = "c# New Test Next",
+                Title = "Good Test",
                 Topic = "Programming Next",
                 TimeLimit = new TimeSpan(0, 2, 0),
                 Questions = questions
