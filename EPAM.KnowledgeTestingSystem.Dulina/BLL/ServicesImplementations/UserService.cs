@@ -5,6 +5,7 @@ using BLL.Services;
 using DAL.Repository;
 using DAL.DataTransferObject;
 using BLL.Configurations;
+using ORM;
 
 namespace BLL.ServicesImplementations
 {
@@ -29,6 +30,21 @@ namespace BLL.ServicesImplementations
         public void DeleteUser(int id)
         {
             userRepository.DeleteById(id);
+            uow.Commit();
+        }
+
+        public void Update(UserEntity entity)
+        {
+            DalUser userToUpdate = MapperBusinessConfiguration.MapperInstance.Map<UserEntity, DalUser>(entity);
+            userRepository.Update(userToUpdate);
+            uow.Commit();
+        }
+
+        public void Update(ExtraUserInformationEntity entity)
+        {
+            DalExtraUserInformation extraToUpdate = MapperBusinessConfiguration.MapperInstance.
+                Map<ExtraUserInformationEntity, DalExtraUserInformation>(entity);
+            userRepository.UpdateExtraInfo(extraToUpdate);
             uow.Commit();
         }
 

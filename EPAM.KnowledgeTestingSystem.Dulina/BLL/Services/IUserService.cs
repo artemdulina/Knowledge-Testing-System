@@ -10,5 +10,7 @@ namespace BLL.Services
         IEnumerable<UserEntity> GetAllUserEntities();
         void CreateUser(UserEntity user);
         void DeleteUser(int id);
+        void Update(UserEntity entity);
+        void Update(ExtraUserInformationEntity entity);
     }
 }

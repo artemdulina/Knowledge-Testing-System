@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ORM
@@ -21,5 +22,7 @@ namespace ORM
         public string LastName { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
+
+        public virtual ExtraUserInformation Information { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace MvcKnowledgeSystem.Models
         public int CorrectAnswers { get; set; }
 
         public int TotalQuestions { get; set; }
+
+        public TimeSpan ElapsedTime { get; set; }
     }
 }

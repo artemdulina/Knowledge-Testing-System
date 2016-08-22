@@ -17,5 +17,7 @@ namespace DAL.DataTransferObject
         public string LastName { get; set; }
 
         public ICollection<DalRole> Roles { get; set; }
+
+        public DalExtraUserInformation Information { get; set; }
     }
 }

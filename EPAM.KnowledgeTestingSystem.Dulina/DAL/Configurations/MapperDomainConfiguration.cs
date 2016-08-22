@@ -23,6 +23,7 @@ namespace DAL.Configurations
                 cfg.CreateMap<Test, DalTest>().ReverseMap();
                 cfg.CreateMap<Question, DalQuestion>().ReverseMap();
                 cfg.CreateMap<Answer, DalAnswer>().ReverseMap();
+                cfg.CreateMap<ExtraUserInformation, DalExtraUserInformation>().ReverseMap();
             }).CreateMapper();
         }
     }

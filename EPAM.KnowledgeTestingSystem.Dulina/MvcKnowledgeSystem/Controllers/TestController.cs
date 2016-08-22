@@ -3,6 +3,7 @@ using BLL.Services;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Security;
@@ -11,24 +12,42 @@ using System.Web;
 using System.Web.Mvc;
 using MvcKnowledgeSystem.Models;
 using Newtonsoft.Json;
+using ORM;
 
 namespace MvcKnowledgeSystem.Controllers
 {
     public class TestController : Controller
     {
-        private ITestService testService;
+        private readonly ITestService testService;
+        private readonly IUserService userService;
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public TestController(ITestService service)
+        public TestController(ITestService testService, IUserService userService)
         {
-            testService = service;
+            this.testService = testService;
+            this.userService = userService;
         }
 
         public ActionResult Index()
         {
             //IEnumerable<TestEntity> tests = testService.GetAllTestEntities();
-
+            UserEntity user = userService.GetUserEntity(User.Identity.Name);
+            //logger.Info(user.Information.TimeStart);
+            //user.Information = new ExtraUserInformationEntity() { TimeStart = DateTime.UtcNow };
+            //logger.Info(user.Information.FinishTime + "abababababababababbabaababbaabab");
+            //user.FirstName = "changedabra";
+            //user.FirstName = "1";
+            //user.Information.TimeStart = DateTime.UtcNow;
+            //user.Information.FinishTime = DateTime.UtcNow;
+            /*DbContext db = new TestingSystemContext();
+            ExtraUserInformation rt = new ExtraUserInformation() { Id = 1037, FinishTime = DateTime.UtcNow };
+            db.Set<ExtraUserInformation>().Attach(rt);
+            db.Entry(rt).State = EntityState.Modified;
+            db.SaveChanges();*/
+            ExtraUserInformationEntity extra = user.Information;
+            extra.TimeStart = DateTime.UtcNow;
+            userService.Update(extra);
             return View();
         }
 
@@ -51,13 +70,28 @@ namespace MvcKnowledgeSystem.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            TestEntity test = testService.GetTestEntity(id.GetValueOrDefault());
-            HttpContext.Response.Cookies.Add(new HttpCookie("id", "HC.Response.Add"));
-            HttpContext.Response.Cookies.Add(new HttpCookie("id1", "HC.Response.Add"));
-            string startTime = DateTime.Now.ToString(CultureInfo.CurrentCulture);
+            UserEntity user = userService.GetUserEntity(User.Identity.Name);
+            //logger.Info(user.Information.TimeStart);
+            //user.Information = new ExtraUserInformationEntity() { TimeStart = DateTime.UtcNow };
+            //user.FirstName = "changed";
+            //user.FirstName = "1";
+            //user.Information.TimeStart = DateTime.UtcNow;
+            //user.Information.FinishTime = DateTime.UtcNow;
+            /*DbContext db = new TestingSystemContext();
+            ExtraUserInformation rt = new ExtraUserInformation() { Id = 1037, FinishTime = DateTime.UtcNow };
+            db.Set<ExtraUserInformation>().Attach(rt);
+            db.Entry(rt).State = EntityState.Modified;
+            db.SaveChanges();*/
+            
+            //userService.Update(user);
 
-            HttpContext.Response.Cookies.Add(new HttpCookie("teststart", startTime));
+            TestEntity test = testService.GetTestEntity(id.GetValueOrDefault());
             ViewData["id"] = id;
+
+            ExtraUserInformationEntity extra = user.Information;
+            extra.TimeStart = DateTime.UtcNow;
+            userService.Update(extra);
+
             return View(test);
         }
 
@@ -71,6 +105,13 @@ namespace MvcKnowledgeSystem.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            UserEntity user = userService.GetUserEntity(User.Identity.Name);
+
+            TestStatistics statistics = new TestStatistics
+            {
+                ElapsedTime = (DateTime.UtcNow - user.Information.TimeStart).GetValueOrDefault()
+            };
+
             TestEntity test = testService.GetTestEntity(testId.Value);
 
             for (int i = 0; i < test.Questions.Count; i++)
@@ -79,12 +120,9 @@ namespace MvcKnowledgeSystem.Controllers
 
                 for (int j = 0; j < answers[i].Answers.Length; j++)
                 {
-                    if (test.Questions[i].Answers[j].IsCorrect ^ answers[i].Answers[j])
-                    {
-                        correct = false;
-                        break;
-                    }
-
+                    if (!(test.Questions[i].Answers[j].IsCorrect ^ answers[i].Answers[j])) continue;
+                    correct = false;
+                    break;
                 }
 
                 if (correct)
@@ -93,20 +131,15 @@ namespace MvcKnowledgeSystem.Controllers
                 }
             }
 
-
-            TestStatistics statistics = new TestStatistics
-            {
-                CorrectAnswers = countRight,
-                TotalQuestions = test.Questions.Count
-            };
-
+            statistics.CorrectAnswers = countRight;
+            statistics.TotalQuestions = test.Questions.Count;
+            
             return View(statistics);
         }
-
-        [HttpPost]
-        public ActionResult PostSome(IList<AnswerViewModel> answers, int? testId)
+        
+        public string PostSome()
         {
-            return View(testId.GetValueOrDefault());
+            return "Artem Dulina";
         }
     }
 }

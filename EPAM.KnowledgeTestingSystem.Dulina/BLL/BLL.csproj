@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -55,6 +55,7 @@
     <Compile Include="Configurations\MapperBusinessConfiguration.cs" />
     <Compile Include="DependencyModules\BllModule.cs" />
     <Compile Include="Entities\AnswerEntity.cs" />
+    <Compile Include="Entities\ExtraUserInformationEntity.cs" />
     <Compile Include="Entities\QuestionEntity.cs" />
     <Compile Include="Entities\RoleEntity.cs" />
     <Compile Include="Entities\RoleType.cs" />
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{2b74ea14-c95d-43a9-a9b2-c3f5cfe419bb}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ORM\ORM.csproj">
+      <Project>{5F52BF7E-5EC7-4295-A6BC-9DD15B6B1ED0}</Project>
+      <Name>ORM</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

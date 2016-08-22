@@ -18,5 +18,7 @@ namespace BLL.Entities
         public string LastName { get; set; }
 
         public ICollection<RoleEntity> Roles { get; set; }
+
+        public ExtraUserInformationEntity Information { get; set; }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using DAL.Configurations;
 using DAL.DataTransferObject;
 using DAL.Repository;
+using NLog;
 using ORM;
 
 namespace DAL.RepositoryImplementations
@@ -60,9 +62,10 @@ namespace DAL.RepositoryImplementations
         public void Update(DalUser entity)
         {
             User user = MapperDomainConfiguration.MapperInstance.Map<DalUser, User>(entity);
-
-            context.Set<User>().Attach(user);
-            context.Entry(user).State = EntityState.Modified;
+            //logger.Info(user.Id);
+            context.Set<User>().AddOrUpdate(user);
+            //context.Set<User>().Attach(user);
+            //context.Entry(user).State = EntityState.Modified;
         }
 
         public DalUser Get(string name)
@@ -73,6 +76,14 @@ namespace DAL.RepositoryImplementations
                 return null;
 
             return MapperDomainConfiguration.MapperInstance.Map<User, DalUser>(found);
+        }      
+
+        public void UpdateExtraInfo(DalExtraUserInformation information)
+        {
+            ExtraUserInformation info = MapperDomainConfiguration.MapperInstance.
+                Map<DalExtraUserInformation, ExtraUserInformation>(information);
+            
+            context.Set<ExtraUserInformation>().AddOrUpdate(info);
         }
     }
 }

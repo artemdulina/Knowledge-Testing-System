@@ -2,6 +2,7 @@
 using BLL.Entities;
 using BLL.Services;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using MvcKnowledgeSystem.Models;
@@ -13,9 +14,10 @@ namespace MvcKnowledgeSystem.Controllers
         private IUserService userService;
         private ITestService testService;
 
-        public HomeController(ITestService service)
+        public HomeController(ITestService service,IUserService user)
         {
             testService = service;
+            userService = user;
         }
 
         public ActionResult About()
@@ -26,16 +28,16 @@ namespace MvcKnowledgeSystem.Controllers
         // GET: Home
         public ActionResult Index(int page = 1)
         {
-            //return RedirectToAction("Index", "Test");
             /*userService.CreateUser(new UserEntity()
             {
                 //Username = "SuperUser",
-                Username = "guest",
+                Username = "dulinaartem",
                 Email = "guest@gmail.com",
                 FirstName = "Troelsen",
                 LastName = "Petrovich",
-                Password = "guest",
-                Roles = new List<RoleEntity>() { new RoleEntity() { Type = RoleType.Guest } }
+                Password = "789123",
+                Roles = new List<RoleEntity>() { new RoleEntity() { Type = RoleType.Guest } },
+                Information = new ExtraUserInformationEntity() { TimeStart = DateTime.UtcNow }
             });*/
             List<AnswerEntity> answers = new List<AnswerEntity>();
             answers.Add(new AnswerEntity()
@@ -79,7 +81,7 @@ namespace MvcKnowledgeSystem.Controllers
                 TimeLimit = new TimeSpan(0, 2, 0),
                 Questions = questions
             });*/
-            //IEnumerable<UserEntity> users = userService.GetAllUserEntities();
+
             int testsOnPage = 10;
             IEnumerable<TestEntity> tests = testService.GetAllTestEntities().ToList();
             IEnumerable<TestEntity> partTests = tests.Skip((page - 1) * testsOnPage).Take(testsOnPage);

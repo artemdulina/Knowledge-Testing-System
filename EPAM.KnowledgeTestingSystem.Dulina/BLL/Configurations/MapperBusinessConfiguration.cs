@@ -23,6 +23,7 @@ namespace BLL.Configurations
                 cfg.CreateMap<TestEntity, DalTest>().ReverseMap();
                 cfg.CreateMap<QuestionEntity, DalQuestion>().ReverseMap();
                 cfg.CreateMap<AnswerEntity, DalAnswer>().ReverseMap();
+                cfg.CreateMap<ExtraUserInformationEntity, DalExtraUserInformation>().ReverseMap();
             }).CreateMapper();
         }
     }
