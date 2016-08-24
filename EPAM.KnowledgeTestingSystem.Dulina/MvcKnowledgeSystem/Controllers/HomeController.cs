@@ -14,7 +14,7 @@ namespace MvcKnowledgeSystem.Controllers
         private IUserService userService;
         private ITestService testService;
 
-        public HomeController(ITestService service,IUserService user)
+        public HomeController(ITestService service, IUserService user)
         {
             testService = service;
             userService = user;
@@ -99,6 +99,12 @@ namespace MvcKnowledgeSystem.Controllers
             }
 
             TestsViewModel testModel = new TestsViewModel { PageInfo = pageInfo, Tests = partTests };
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(testModel, JsonRequestBehavior.AllowGet);
+            }
+
             return View(testModel);
         }
     }

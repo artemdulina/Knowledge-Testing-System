@@ -40,14 +40,15 @@ namespace MvcKnowledgeSystem.Controllers
             //user.FirstName = "1";
             //user.Information.TimeStart = DateTime.UtcNow;
             //user.Information.FinishTime = DateTime.UtcNow;
-            /*DbContext db = new TestingSystemContext();
-            ExtraUserInformation rt = new ExtraUserInformation() { Id = 1037, FinishTime = DateTime.UtcNow };
+            DbContext db = new TestingSystemContext();
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Tests]");
+            /*ExtraUserInformation rt = new ExtraUserInformation() { Id = 1037, FinishTime = DateTime.UtcNow };
             db.Set<ExtraUserInformation>().Attach(rt);
-            db.Entry(rt).State = EntityState.Modified;
-            db.SaveChanges();*/
-            ExtraUserInformationEntity extra = user.Information;
-            extra.TimeStart = DateTime.UtcNow;
-            userService.Update(extra);
+            db.Entry(rt).State = EntityState.Modified;*/
+            db.SaveChanges();
+            //ExtraUserInformationEntity extra = user.Information;
+            //extra.TimeStart = DateTime.UtcNow;
+            //userService.Update(extra);
             return View();
         }
 

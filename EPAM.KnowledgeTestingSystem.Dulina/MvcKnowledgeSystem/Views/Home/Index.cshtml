@@ -8,7 +8,7 @@
 <div class="container">
     <h2>Available Tests</h2>
     <p>You can choose any of this tests to pass:</p>
-    <table class="table table-hover table-condensed table-bordered">
+    <table class="table table-hover table-condensed">
         <thead>
             <tr>
                 <th>Title</th>
@@ -31,7 +31,7 @@
         <ul class="pagination">
             @if (Model.PageInfo.CurrentPage != 1)
             {
-                <li>
+                <li id="@(Model.PageInfo.CurrentPage - 1)">
                     <a href="/?page=@(Model.PageInfo.CurrentPage - 1)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -41,16 +41,16 @@
             {
                 if (i != Model.PageInfo.CurrentPage)
                 {
-                    <li><a href="/?page=@i">@i</a></li>
+                    <li id="@i"><a href="/?page=@i">@i</a></li>
                 }
                 else
                 {
-                    <li class="active"><a href="/?page=@i">@i</a></li>
+                    <li id="@i" class="active"><a href="/?page=@i">@i</a></li>
                 }
             }
             @if (Model.PageInfo.CurrentPage != Model.PageInfo.TotalPages)
             {
-                <li>
+                <li id="@(Model.PageInfo.CurrentPage + 1)">
                     <a href="/?page=@(Model.PageInfo.CurrentPage + 1)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
@@ -59,6 +59,11 @@
         </ul>
     </nav>
 </div>
+
+@*<div align="center">
+        <button id="btn1" class="btn btn-success">Finish Test</button>
+    </div>*@
+<p id="time"></p>
 
 <style>
     a {
@@ -76,3 +81,131 @@
         background-color: coral;
     }
 </style>
+
+<script>
+
+    //$(document)
+    //.ready(function () {
+    $('.pagination')
+        .on("click", 'li', function (event) {
+            var value = $(this).attr('id');
+            $.ajax({
+                url: '/Home/Index/?page=' + value,
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+                    reloadPagination(data['PageInfo']);
+                    reloadTestsTable(data.Tests);
+                    //data.PageInfo.CurrentPage;
+                    //data.PageInfo.TotalObjects;
+                    //data.PageInfo.ObjectsOnPage;
+                    var date = new Date(data.Tests[0].TimeLimit.TotalMilliseconds);
+                    //data.Tests[0].TimeLimit;
+                    //data['PageInfo']['CurrentPage'];
+                    //alert(data.PageInfo.TotalObjects
+                    //console.log(data);
+                },
+                //complete: function () {
+                //    alert('complete');
+                //},
+                error: function () {
+                    alert('error');
+                }
+            });
+
+            return false;
+        });
+    // });
+
+    function reloadPagination(pageInformation) {
+        var pagination = document.querySelector('.pagination');
+        var html = [];
+        var start = new Date;
+
+        if (pageInformation.CurrentPage != 1) {
+            html.push('<li id="');
+            html.push(pageInformation.CurrentPage - 1);
+            html.push('"<a href="/?page=');
+            html.push(pageInformation.CurrentPage - 1);
+            html.push('" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+        }
+
+        for (var i = 1; i <= pageInformation.TotalPages; i++) {
+            if (i != pageInformation.CurrentPage) {
+                html.push('<li id="');
+                html.push(i);
+                html.push('"><a href="/?page=');
+                html.push(i);
+                html.push('">');
+                html.push(i);
+                html.push('</a></li>');
+            } else {
+                html.push('<li id="');
+                html.push(i);
+                html.push('" class="active"><a href="/?page=');
+                html.push(i);
+                html.push('">');
+                html.push(i);
+                html.push('</a></li>');
+            }
+        }
+
+        if (pageInformation.CurrentPage != pageInformation.TotalPages) {
+            html.push('<li id="');
+            html.push(pageInformation.CurrentPage + 1);
+            html.push('"<a href="/?page=');
+            html.push(pageInformation.CurrentPage + 1);
+            html.push('" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+        }
+
+        pagination.innerHTML = html.join('');
+        //alert(pagination.innerHTML);
+
+        var end = new Date;
+        document.querySelector('#time').textContent = end - start;
+    }
+
+    function reloadTestsTable(tests) {
+        var lines = document.querySelector('.table tbody');
+        var html = [];
+        var start = new Date;
+        for (var i = 0; i < tests.length; i++) {
+            var date = new Date(tests[i].TimeLimit.TotalMilliseconds);
+            html.push('<tr class="trr">');
+            html.push('<td><a href="/Test/Info/');
+            html.push(tests[i].Id);
+            html.push('">');
+            html.push(tests[i].Title);
+            html.push('</a></td><td><a href="/Test/Info/');
+            html.push(tests[i].Id);
+            html.push('">');
+            html.push(tests[i].Topic);
+            html.push('</a></td><td><a href="/Test/Info/');
+            html.push(tests[i].Id);
+            html.push('">');
+            html.push(tests[i].TimeLimit.Hours);
+            html.push(':');
+            html.push(tests[i].TimeLimit.Minutes);
+            html.push(':');
+            html.push(tests[i].TimeLimit.Seconds);
+            html.push('</a></td></tr>');
+        }
+
+        $('.table tbody').hide();
+        //$(lines).attr('hidden','hidden');
+        lines.innerHTML = html.join('');
+        $(lines).show('slow');
+        var end = new Date;
+        document.querySelector('#time').textContent = end - start;
+    }
+
+</script>
+
+@*@foreach (var test in Model.Tests)
+                {
+        <tr class="trr">
+            <td><a href="/Test/Info/@test.Id">@test.Title</a></td>
+            <td><a href="/Test/Info/@test.Id">@test.Topic</a></td>
+            <td><a href="/Test/Info/@test.Id">@test.TimeLimit</a></td>
+        </tr>
+    }*@

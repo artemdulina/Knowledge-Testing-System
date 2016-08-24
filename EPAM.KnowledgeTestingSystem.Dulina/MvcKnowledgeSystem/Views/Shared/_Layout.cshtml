@@ -24,7 +24,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text" style="color: white">Hi, @User.Identity.Name!</p></li>
+                    <li>
+                        <h2 id="timer" class="navbar-text" style="color: white">02:00</h2>
+                    </li>
+                    <li>
+                        <p class="navbar-text" style="color: white">Hi, @User.Identity.Name!</p></li>
+
                     <li><a href="/Home/About" style="color: white">About</a></li>
                     @{
                         if (!User.Identity.IsAuthenticated)

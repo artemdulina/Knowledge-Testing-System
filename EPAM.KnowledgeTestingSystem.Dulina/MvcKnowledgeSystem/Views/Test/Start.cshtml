@@ -48,7 +48,7 @@
                 <div align="center">
                     <div class="btn-group" role="group" aria-label="...">
                         <button type="button" class="btn btn-success" onclick="hideQuestionConfident(@i)">Answer</button>
-                        <button type="button" class="btn btn-warning" onclick="hideQuestionDoubtfully(@i)">Answer doubtfully</button>
+                        <button id="elem" type="button" class="btn btn-warning" onclick="hideQuestionDoubtfully(@i)">Answer doubtfully</button>
                     </div>
                 </div>
             </div>
@@ -93,9 +93,11 @@
         }
     });
 
+    //alert(document.querySelector('#elem').getAttribute('type'));
+    //alert(a.getAttribute('href'));
+
     $(document).ready(function () {
         $("#ph0").click(function () {
-            //$("#as0").slideToggle("slow");
             $("#as0").slideToggle("slow");
         });
     });

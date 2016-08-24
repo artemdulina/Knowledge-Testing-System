@@ -13,7 +13,7 @@ namespace DAL.RepositoryImplementations
         public UnitOfWork(DbContext context)
         {
             Context = context;
-            Context.Database.Log = s => logger.Info(s);
+            //Context.Database.Log = s => logger.Info(s);
         }
 
         public void Commit()
