@@ -97,6 +97,7 @@ namespace MvcKnowledgeSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CheckTestAnswers(IList<AnswerViewModel> answers, int? testId)
         {
             int countRight = 0;

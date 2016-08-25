@@ -76,9 +76,9 @@ namespace MvcKnowledgeSystem.Controllers
             });
             /*testService.CreateTest(new TestEntity()
             {
-                Title = "Good Test",
-                Topic = "Programming Next",
-                TimeLimit = new TimeSpan(0, 2, 0),
+                Title = "Short Test",
+                Topic = "Short Test",
+                TimeLimit = new TimeSpan(0, 0, 4),
                 Questions = questions
             });*/
 

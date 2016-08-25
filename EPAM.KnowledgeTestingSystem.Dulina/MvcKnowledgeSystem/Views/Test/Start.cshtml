@@ -1,14 +1,16 @@
 ﻿@using BLL.Entities
 @model TestEntity
 @{
-    ViewBag.Title = "Start";
+    ViewBag.Title = "Testing";
 }
 
 <form action="/Test/CheckTestAnswers" method="post">
+    @Html.AntiForgeryToken()
     @for (int i = 0; i < Model.Questions.Count; i++)
     {
         <div class="panel panel-primary" style="margin-top: 10px;">
-            <div id="ph@(i)" class="panel-heading">@*onclick="hideQuestion(@i)">*@
+            <div id="ph@(i)" class="panel-heading">
+                @*onclick="hideQuestion(@i)">*@
                 <p align="center">
                     @Model.Questions[i].Text
                     <span id="gly@(i)" class="glyphicon glyphicon-minus pull-right"></span>
@@ -24,13 +26,11 @@
                 filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary(new { controller = "Account", action = "Login" }));
             }
-
                     if (!CurrentUser.IsInRole(Roles))
             {
                 filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary(new { controller = "Account", action = "Login" }));
             }
-
                     if (!CurrentUser.IsInRole(Roles))
             {
                 filterContext.Result = new RedirectToRouteResult(
@@ -40,9 +40,9 @@
     </pre>
                 <div id="st" class="input-group" style="margin-left: auto; margin-right: auto;">
                     @for (int j = 0; j < Model.Questions[i].Answers.Count; j++)
-                {
+                    {
                         <input type="checkbox" name="[@i].Answers[@j]" value="true">@(Model.Questions[i].Answers[j].Text)<br>
-                        <input type="hidden" value="false" name="[@i].Answers[@j]" />
+                        <input type="hidden" value="false" name="[@i].Answers[@j]"/>
                     }
                 </div>
                 <div align="center">
@@ -54,10 +54,11 @@
             </div>
         </div>
     }
-    <input type="hidden" value="@ViewData["id"]" name="testId" />
+    <input type="hidden" value="@ViewData["id"]" name="testId"/>
     <div align="center">
-        <input type="submit" class="btn btn-success" value="Finish Test">
+        <input id="check" type="submit" class="btn btn-success" value="Finish Test">
     </div>
+    <input hidden id="withoutcheck" type="submit">
 </form>
 
 @*<div align="center">
@@ -75,9 +76,11 @@
 
 <script>
     var toggleWholeQuestion = new Array(@Model.Questions.Count);
+
     for (var i = 0; i < toggleWholeQuestion.length; i++) {
         toggleWholeQuestion[i] = true;
     }
+
     $.ajax({
         url: '/Test/PostSome',
         //type: 'GET',
@@ -92,9 +95,6 @@
             //alert('error');
         }
     });
-
-    //alert(document.querySelector('#elem').getAttribute('type'));
-    //alert(a.getAttribute('href'));
 
     $(document).ready(function () {
         $("#ph0").click(function () {
@@ -126,6 +126,57 @@
         hideQuestion(id);
         document.body.querySelector("#ph" + id).style.backgroundColor = 'gold';
     }
+
+    function getTimeRemaining(endtime) {
+        var t = endtime - new Date();
+        var seconds = Math.floor((t / 1000) % 60);
+        var minutes = Math.floor((t / 1000 / 60) % 60);
+        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        return {
+            'total': t,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function initializeClock(id, endtime) {
+        var clock = document.getElementById(id);
+        var hoursSpan = clock.querySelector('.hours');
+        var minutesSpan = clock.querySelector('.minutes');
+        var secondsSpan = clock.querySelector('.seconds');
+
+        updateClock();
+        var timeinterval = setInterval(updateClock, 1000);
+
+        var num = 5;
+        function updateClock() {
+            var t = getTimeRemaining(endtime);
+            hoursSpan.textContent = getTimeString(t.hours) + ':';
+            minutesSpan.textContent = getTimeString(t.minutes) + ':';
+            secondsSpan.textContent = getTimeString(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timeinterval);
+                hoursSpan.textContent = 'Time is over';
+                minutesSpan.textContent = '';
+                secondsSpan.textContent = '';
+                $('#withoutcheck').click();
+            }
+        }
+    }
+
+    function getTimeString(number) {
+
+        if (number.toString().length === 1) {
+            return '0' + number;
+        }
+
+        return number;
+    }
+
+    var deadline = new Date().setTime(Date.now() + @Model.TimeLimit.TotalMilliseconds);
+    initializeClock('timer', deadline);
 </script>
 
 
