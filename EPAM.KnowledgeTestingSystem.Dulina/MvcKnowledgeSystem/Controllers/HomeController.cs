@@ -22,7 +22,18 @@ namespace MvcKnowledgeSystem.Controllers
 
         public ActionResult About()
         {
-            return View();
+            UserEntity user = userService.GetUserEntity(1041);
+            //user.Roles.Add(new RoleEntity() { Type = RoleType.RegisteredUser });
+            //user.Information.FinishTime = DateTime.UtcNow;
+            //ExtraUserInformationEntity extra = user.Information;
+            //user.Information = new ExtraUserInformationEntity() { FinishTime = DateTime.UtcNow };
+            //userService.Update(user);
+            //UserEntity userE = userService.GetUserEntity(1041);
+            user.Password = "abre";
+            user.Information.FinishTime = DateTime.UtcNow;
+
+            userService.Update(user);
+            return View(user);
         }
 
         // GET: Home
@@ -31,12 +42,12 @@ namespace MvcKnowledgeSystem.Controllers
             /*userService.CreateUser(new UserEntity()
             {
                 //Username = "SuperUser",
-                Username = "dulinaartem",
+                Username = "multipleroles",
                 Email = "guest@gmail.com",
                 FirstName = "Troelsen",
                 LastName = "Petrovich",
                 Password = "789123",
-                Roles = new List<RoleEntity>() { new RoleEntity() { Type = RoleType.Guest } },
+                Roles = new List<RoleEntity>() { new RoleEntity() { Type = RoleType.Administrator }, new RoleEntity() { Type = RoleType.Moderator } },
                 Information = new ExtraUserInformationEntity() { TimeStart = DateTime.UtcNow }
             });*/
             List<AnswerEntity> answers = new List<AnswerEntity>();

@@ -15,6 +15,7 @@ namespace DAL.RepositoryImplementations
     public class UserRepository : IUserRepository
     {
         private readonly DbContext context;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public UserRepository(DbContext context)
         {
@@ -64,9 +65,26 @@ namespace DAL.RepositoryImplementations
             User user = MapperDomainConfiguration.MapperInstance.Map<DalUser, User>(entity);
             //logger.Info(user.Id);
             context.Set<User>().AddOrUpdate(user);
+            //User usert = new User() {Id=1041,Password = "111111"};
+            //User userf = context.Set<User>().Single(u => u.Id == user.Id);
+            //context.Entry(user).State = EntityState.Unchanged;
             //context.Set<User>().Attach(user);
-            //context.Entry(user).State = EntityState.Modified;
+            //userf.Password = "111111";
+            //context.Entry(userf).State = EntityState.Modified;
+            //logger.Info(context.Entry(user).State);
         }
+
+        /*
+         public void ChangePassword(int userId, string password)
+{
+  var user = new User() { Id = userId, Password = password };
+  using (var db = new MyEfContextName())
+  {
+    db.Users.Attach(user);
+    db.Entry(user).Property(x => x.Password).IsModified = true;
+    db.SaveChanges();
+  }
+}*/
 
         public DalUser Get(string name)
         {

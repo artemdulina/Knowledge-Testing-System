@@ -5,82 +5,62 @@
     ViewBag.Title = "Knowledge Testing System";
 }
 
-<div class="container">
-    <h2>Available Tests</h2>
-    <p>You can choose any of this tests to pass:</p>
-    <table class="table table-hover table-condensed">
-        <thead>
+<form action="/search" method="post">
+        <input type="text" class="form-control" placeholder="Type to start live searching">
+</form>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Topic</th>
+            <th>TimeLimit</th>
+        </tr>
+    </thead>
+    <tbody class="trr">
+        @foreach (var test in Model.Tests)
+            {
             <tr>
-                <th>Title</th>
-                <th>Topic</th>
-                <th>TimeLimit</th>
+                <td><a href="/Test/Info/@test.Id">@test.Title</a></td>
+                <td><a href="/Test/Info/@test.Id">@test.Topic</a></td>
+                <td><a href="/Test/Info/@test.Id">@test.TimeLimit</a></td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var test in Model.Tests)
+        }
+    </tbody>
+</table>
+<nav class="text-center" aria-label="Page navigation">
+    <ul class="pagination">
+        @if (Model.PageInfo.CurrentPage != 1)
             {
-                <tr class="trr">
-                    <td><a href="/Test/Info/@test.Id">@test.Title</a></td>
-                    <td><a href="/Test/Info/@test.Id">@test.Topic</a></td>
-                    <td><a href="/Test/Info/@test.Id">@test.TimeLimit</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <nav aria-label="Page navigation" style="margin-left: 45%;">
-        <ul class="pagination">
-            @if (Model.PageInfo.CurrentPage != 1)
-            {
-                <li id="@(Model.PageInfo.CurrentPage - 1)">
-                    <a href="/?page=@(Model.PageInfo.CurrentPage - 1)" aria-label="Previous">
-                        <span>&laquo;</span>
-                    </a>
-                </li>
-            }
-            @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
+            <li id="@(Model.PageInfo.CurrentPage - 1)">
+                <a href="/?page=@(Model.PageInfo.CurrentPage - 1)" aria-label="Previous">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
             {
                 if (i != Model.PageInfo.CurrentPage)
                 {
-                    <li id="@i"><a href="/?page=@i">@i</a></li>
-                }
-                else
-                {
-                    <li id="@i" class="active"><a href="/?page=@i">@i</a></li>
-                }
+                <li id="@i"><a href="/?page=@i">@i</a></li>
             }
-            @if (Model.PageInfo.CurrentPage != Model.PageInfo.TotalPages)
+            else
             {
-                <li id="@(Model.PageInfo.CurrentPage + 1)">
-                    <a href="/?page=@(Model.PageInfo.CurrentPage + 1)" aria-label="Next">
-                        @*<span>&raquo;</span>*@&raquo;
-                    </a>
-                </li>
+                <li id="@i" class="active"><a href="/?page=@i">@i</a></li>
             }
-        </ul>
-    </nav>
-</div>
-
-@*<div align="center">
-        <button id="btn1" class="btn btn-success">Finish Test</button>
-    </div>*@
-<p id="time"></p>
-
-<style>
-    a {
-        display: block;
-        padding: 1px;
-        color: black;
-    }
-
-        a:hover {
-            text-decoration: none;
-            color: black;
         }
+        @if (Model.PageInfo.CurrentPage != Model.PageInfo.TotalPages)
+            {
+            <li id="@(Model.PageInfo.CurrentPage + 1)">
+                <a href="/?page=@(Model.PageInfo.CurrentPage + 1)" aria-label="Next">
+                    &raquo;
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
 
-    .trr:hover td {
-        background-color: coral;
-    }
-</style>
+<p id="time"></p>
 
 <script>
 

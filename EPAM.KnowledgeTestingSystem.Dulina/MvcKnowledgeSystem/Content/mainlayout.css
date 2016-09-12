@@ -1,0 +1,64 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    background-color: #efefef;
+    text-align: center;
+    height:30px;
+}
+
+body {
+    margin-bottom: 30px;
+    background-color: #FAFAFA;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.clock-white {
+    color: white;
+    font-size: 20px;
+}
+
+.form-control {
+    margin: 15px auto;
+}
+
+.trr >tr > td > a {
+    display: block;
+    padding: 0;
+    color: black;
+    height: 31px;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 0;
+}
+
+.trr > tr > td > a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.trr > tr:hover > td {
+    background-color: coral;
+}
+
+.nav-bg-color {
+    background-color: #00BCD4
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}

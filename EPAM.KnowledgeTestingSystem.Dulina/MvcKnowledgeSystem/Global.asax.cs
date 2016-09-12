@@ -46,7 +46,7 @@ namespace MvcKnowledgeSystem
                 newUser.roles = new RoleEntity[] { new RoleEntity() { Type = RoleType.Guest } };
 
                 Request.RequestContext.HttpContext.User = newUser;
-                logger.Info("elseelseelseelseelseelseelse"+newUser.Identity.IsAuthenticated);
+                //logger.Info("elseelseelseelseelseelseelse"+newUser.Identity.IsAuthenticated);
             }
 
         }

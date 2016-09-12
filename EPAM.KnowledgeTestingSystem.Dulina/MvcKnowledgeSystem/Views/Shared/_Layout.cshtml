@@ -1,18 +1,20 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using BLL.Entities
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/mainlayout.css" rel="stylesheet" type="text/css">
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 
-<body id="bdi" style="background-color: #FAFAFA">
-    <div class="navbar navbar-default navbar-fixed-top" style="background-color: #00BCD4;">
+<body>
+    <div class="navbar navbar-default navbar-fixed-top nav-bg-color">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,7 +22,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/" style="color: white">Knowledge Testing</a>
+                <a class="navbar-brand" href="/">Knowledge Testing</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -30,39 +32,34 @@
                         <span class="seconds clock-white"></span>
                     </li>
 
-                    <li><p class="navbar-text" style="color: white">Hi, @User.Identity.Name!</p></li>
-
-                    <li><a href="/Home/About" style="color: white">About</a></li>
+                    <li><a href="/home/about">About</a></li>
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                            <li><a href="/Account/Login" style="color: white">Login</a></li>
+                            <li><a href="/account/login">Login</a></li>
                         }
                         else
                         {
                             <li class="dropdown ">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white">
-                                    Account
+                                    @User.FirstName @User.LastName
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="dropdown-header">SETTINGS</li>
-                                    <li class=""><a href="#">Profile</a></li>
+                                    @if (User.IsInRole(new[] { RoleType.Administrator }))
+                                    {
+                                        <li class=""><a href="/admin/index">Admin dashboard</a></li>
+                                    }
                                     <li class=""><a href="#">Other Link</a></li>
                                     <li class=""><a href="#">Other Link</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/Account/Logout">Logout</a></li>
+                                    <li><a href="/account/logout">Logout</a></li>
                                 </ul>
                             </li>
                         }
                     }
                 </ul>
-                <form class="navbar-form navbar-right">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
             </div>
         </div>
     </div>
@@ -72,28 +69,8 @@
     </div>
 
     <footer class="footer">
-        <p class="text-muted">Copyright &copy; @DateTime.Now.Year Knowledge System. All rights reserved.</p>
+        <span>Copyright &copy; @DateTime.Now.Year Knowledge System. All rights reserved.</span>
     </footer>
 
-    <style>
-        .footer {
-            width: 100%;
-            position: relative;
-            height: 20px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .clock-white {
-            color: white;
-            /*margin-top: 15px;
-            margin-bottom: 15px;
-            float: left;*/
-            font-size: 20px;
-        }
-    </style>
-
-    @*<script src="~/Scripts/jquery-3.1.0.min.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>*@
 </body>
 </html>

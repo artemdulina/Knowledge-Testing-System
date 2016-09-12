@@ -17,5 +17,10 @@ namespace MvcKnowledgeSystem.Controllers
         {
             return View();
         }
+
+        public ActionResult CreateTest()
+        {
+            return View();
+        }
     }
 }
