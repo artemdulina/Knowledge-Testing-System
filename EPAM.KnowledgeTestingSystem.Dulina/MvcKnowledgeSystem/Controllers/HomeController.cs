@@ -39,6 +39,7 @@ namespace MvcKnowledgeSystem.Controllers
         // GET: Home
         public ActionResult Index(int page = 1)
         {
+            throw new ArgumentNullException();
             /*userService.CreateUser(new UserEntity()
             {
                 //Username = "SuperUser",
