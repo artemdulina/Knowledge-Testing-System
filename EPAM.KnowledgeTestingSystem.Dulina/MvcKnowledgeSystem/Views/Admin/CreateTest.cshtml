@@ -4,10 +4,56 @@
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<div align="center" style="margin-top: 5px">
-    <div class="input-group">
-        <span>artem</span><input type="text" class="form-control" placeholder="Title">
+<div class="panel panel-info">
+    <div class="panel-heading">Create test</div>
+    <div class="panel-body">
+        <form id="test-form" action="/admin/createtest" method="post">
+            <div class="center-form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" placeholder="Title" name="title">
+            </div>
+            <div class="center-form-group">
+                <label>Topic</label>
+                <input type="text" class="form-control" placeholder="Topic" name="topic">
+            </div>
+            <div class="center-form-group">
+                <label>Time interval in minutes</label>
+                <input type="number" class="form-control" placeholder="Time interval in minutes" name="timeinterval">
+            </div>
+            <div class="form-group center-form-group">
+                <label for="description">Test desription</label>
+                <textarea class="form-control" rows="10" id="description"></textarea>
+            </div>
+
+            <div id="question-template" class="panel panel-success">
+                <div class="panel-heading">
+                    <span>Question 1</span>
+                </div>
+                <div class="panel-body question-body">
+                    <div class="form-group center-form-group">
+                        <input type="text" class="form-control" placeholder="Question 1" name="question1">
+                    </div>
+                    <div id="answer-template" class="form-group center-form-group">
+                        <label class="pull-left">Answer 1.1</label>
+                        <input type="checkbox" class="pull-right" name=".Answers[]" value="true"><span class="pull-right">Mark as correct</span><br>
+                        <input type="hidden" value="false" name=".Answers[]" />
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+
+                    <div class="center">
+                        <button class="btn btn-info create-answer">Create another answer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center">
+                <div id="loadingmessage" style="display:none">
+                    <img src='~/Content/Images/ring-alt.gif' />
+                </div>
+                <input id="create-test" type="submit" class="btn btn-success" value="Create test">
+                <button id="create-question" class="btn btn-info">Create another question</button>
+            </div>
+        </form>
     </div>
-    <input type="text" class="form-control" placeholder="Topic">
 </div>
 

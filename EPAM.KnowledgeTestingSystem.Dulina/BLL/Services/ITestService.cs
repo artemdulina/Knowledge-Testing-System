@@ -11,7 +11,7 @@ namespace BLL.Services
     {
         TestEntity GetTestEntity(int id);
         IEnumerable<TestEntity> GetAllTestEntities();
-        void CreateTest(TestEntity user);
+        void CreateTest(TestEntity test);
         void DeleteTest(int id);
     }
 }

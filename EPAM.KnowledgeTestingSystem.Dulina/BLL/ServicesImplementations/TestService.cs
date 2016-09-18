@@ -19,10 +19,10 @@ namespace BLL.ServicesImplementations
             testRepository = repository;
         }
 
-        public void CreateTest(TestEntity user)
+        public void CreateTest(TestEntity test)
         {
-            DalTest userToCreate = MapperBusinessConfiguration.MapperInstance.Map<TestEntity, DalTest>(user);
-            testRepository.Create(userToCreate);
+            DalTest testToCreate = MapperBusinessConfiguration.MapperInstance.Map<TestEntity, DalTest>(test);
+            testRepository.Create(testToCreate);
             uow.Commit();
         }
 

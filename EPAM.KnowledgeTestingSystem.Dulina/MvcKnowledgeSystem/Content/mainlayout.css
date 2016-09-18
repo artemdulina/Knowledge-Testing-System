@@ -1,10 +1,10 @@
 .footer {
     position: absolute;
     bottom: 0;
-    width:100%;
+    width: 100%;
     background-color: #efefef;
     text-align: center;
-    height:30px;
+    height: 35px;
 }
 
 body {
@@ -26,7 +26,7 @@ html {
     margin: 15px auto;
 }
 
-.trr >tr > td > a {
+.trr > tr > td > a {
     display: block;
     padding: 0;
     color: black;
@@ -52,7 +52,7 @@ html {
 }
 
 .nav-bg-color {
-    background-color: #00BCD4
+    background-color: #00BCD4;
 }
 
 .navbar-default .navbar-brand {
@@ -61,4 +61,8 @@ html {
 
 .navbar-default .navbar-nav > li > a {
     color: white;
+}
+
+input.form-control {
+    width: 500px;
 }

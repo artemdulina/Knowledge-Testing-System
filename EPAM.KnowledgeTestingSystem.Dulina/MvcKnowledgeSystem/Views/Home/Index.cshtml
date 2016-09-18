@@ -6,7 +6,7 @@
 }
 
 <form action="/search" method="post">
-        <input type="text" class="form-control" placeholder="Type to start live searching">
+    <input type="text" class="form-control" placeholder="Type to start live searching">
 </form>
 
 <table class="table table-hover">
@@ -64,45 +64,44 @@
 
 <script>
 
-    //$(document)
-    //.ready(function () {
-    $('.pagination')
-        .on("click", 'li', function (event) {
-            var value = $(this).attr('id');
-            $.ajax({
-                url: '/Home/Index/?page=' + value,
-                type: 'GET',
-                datatype: 'json',
-                success: function (data) {
-                    reloadPagination(data['PageInfo']);
-                    reloadTestsTable(data.Tests);
-                    //data.PageInfo.CurrentPage;
-                    //data.PageInfo.TotalObjects;
-                    //data.PageInfo.ObjectsOnPage;
-                    var date = new Date(data.Tests[0].TimeLimit.TotalMilliseconds);
-                    //data.Tests[0].TimeLimit;
-                    //data['PageInfo']['CurrentPage'];
-                    //alert(data.PageInfo.TotalObjects
-                    //console.log(data);
-                },
-                //complete: function () {
-                //    alert('complete');
-                //},
-                error: function () {
-                    alert('error');
-                }
-            });
+    $(document).ready(function () {
+        $('.pagination')
+            .on("click", 'li', function (event) {
+                var value = $(this).attr('id');
+                $.ajax({
+                    url: '/Home/Index/?page=' + value,
+                    type: 'GET',
+                    datatype: 'json',
+                    success: function (data) {
+                        reloadPagination(data['PageInfo']);
+                        reloadTestsTable(data.Tests);
+                        //data.PageInfo.CurrentPage;
+                        //data.PageInfo.TotalObjects;
+                        //data.PageInfo.ObjectsOnPage;
+                        var date = new Date(data.Tests[0].TimeLimit.TotalMilliseconds);
+                        //data.Tests[0].TimeLimit;
+                        //data['PageInfo']['CurrentPage'];
+                        //alert(data.PageInfo.TotalObjects
+                        //console.log(data);
+                    },
+                    //complete: function () {
+                    //    alert('complete');
+                    //},
+                    error: function () {
+                        alert('error');
+                    }
+                });
 
-            return false;
-        });
-    // });
+                return false;
+            });
+    });
 
     function reloadPagination(pageInformation) {
         var pagination = document.querySelector('.pagination');
         var html = [];
         var start = new Date;
 
-        if (pageInformation.CurrentPage != 1) {
+        if (pageInformation.CurrentPage !== 1) {
             html.push('<li id="');
             html.push(pageInformation.CurrentPage - 1);
             html.push('"><a href="/?page=');
@@ -111,7 +110,7 @@
         }
 
         for (var i = 1; i <= pageInformation.TotalPages; i++) {
-            if (i != pageInformation.CurrentPage) {
+            if (i !== pageInformation.CurrentPage) {
                 html.push('<li id="');
                 html.push(i);
                 html.push('"><a href="/?page=');
@@ -130,7 +129,7 @@
             }
         }
 
-        if (pageInformation.CurrentPage != pageInformation.TotalPages) {
+        if (pageInformation.CurrentPage !== pageInformation.TotalPages) {
             html.push('<li id="');
             html.push(pageInformation.CurrentPage + 1);
             html.push('"><a href="/?page=');
