@@ -1,7 +1,12 @@
-﻿
+﻿@using System.Web.Optimization
 @{
     ViewBag.Title = "CreateTest";
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@section CreateTest
+{
+    @Scripts.Render("~/bundles/createtest")
 }
 
 <div class="panel panel-info">

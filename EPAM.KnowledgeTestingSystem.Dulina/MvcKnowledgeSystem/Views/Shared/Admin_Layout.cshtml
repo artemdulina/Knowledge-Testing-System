@@ -1,162 +1,111 @@
 ﻿@using System.Web.Script.Services
+@using System.Web.Optimization
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <!--<link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="~/Content/createtest.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/createtest.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/adminlayout.css" rel="stylesheet" type="text/css"/>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/scripts/createtest.js"></script>
+    <script src="~/scripts/createtest.js"></script>-->
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/adminlayout")
+    @Styles.Render("~/Content/createtest")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("CreateTest", false)
 </head>
 
 <body id="bdi" style="background-color: #FAFAFA">
-<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #00BCD4;">
-    <!-- Navbar top -->
-    @*<div class="container">*@
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/Admin/Index" style="color: white">Admin Dashboard</a>
-    </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            @{
-                if (!User.Identity.IsAuthenticated)
-                {
-                    <li><a href="/Account/Login" style="color: white">Login</a></li>
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #00BCD4;">
+        <!-- Navbar top -->
+        
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Admin/Index" style="color: white">Admin Dashboard</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                @{
+                    if (!User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="/Account/Login" style="color: white">Login</a></li>
+                    }
+                    else
+                    {
+                        <li class="dropdown ">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white">
+                                @User.FirstName @User.LastName
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown-header">SETTINGS</li>
+                                <li class=""><a href="#">Profile</a></li>
+                                <li class=""><a href="#">Other Link</a></li>
+                                <li class=""><a href="#">Other Link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Account/Logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    }
                 }
-                else
-                {
-                    <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white">
-                            @User.FirstName @User.LastName
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">SETTINGS</li>
-                            <li class=""><a href="#">Profile</a></li>
-                            <li class=""><a href="#">Other Link</a></li>
-                            <li class=""><a href="#">Other Link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/Account/Logout">Logout</a></li>
-                        </ul>
-                    </li>
-                }
-            }
-        </ul>
-        <form class="navbar-form navbar-right">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+       
+        <!-- Sidebar -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="index.html"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Dashboard</a>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> User Management <span class="caret"></span></a>
+                    <ul id="demo" class="collapse">
+                        <li>
+                            <a href="/Admin/CreateUser">Create User</a>
+                        </li>
+                        <li>
+                            <a href="#">All Users</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#tests"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Tests Editor <span class="caret"></span></a>
+                    <ul id="tests" class="collapse">
+                        <li>
+                            <a id="crtest" href="/Admin/CreateTest">Create Test</a>
+                        </li>
+                        <li>
+                            <a href="#">All Tests</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
     </div>
-    @*</div>*@
-    <!-- Sidebar -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav">
-            <li>
-                <a href="index.html"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Dashboard</a>
-            </li>
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> User Management <span class="caret"></span></a>
-                <ul id="demo" class="collapse">
-                    <li>
-                        <a href="/Admin/CreateUser">Create User</a>
-                    </li>
-                    <li>
-                        <a href="#">All Users</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#tests"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Tests Editor <span class="caret"></span></a>
-                <ul id="tests" class="collapse">
-                    <li>
-                        <a id="crtest" href="/Admin/CreateTest">Create Test</a>
-                    </li>
-                    <li>
-                        <a href="#">All Tests</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="page-wrapper">
-    <div class="container-fluid">
-        @RenderBody()
-    </div>
-</div>
-
-<style>
-    .footer {
-        width: 100%;
-        position: relative;
-        height: 20px;
-        margin-top: 40px;
-        text-align: center;
-    }
-
-    .clock-white {
-        color: white;
-        /*margin-top: 15px;
-            margin-bottom: 15px;
-            float: left;*/
-        font-size: 20px;
-    }
-
-    @@media (min-width: 768px) {
-        .side-nav {
-            position: fixed;
-            top: 50px;
-            left: 225px;
-            width: 225px;
-            margin-left: -225px;
-            overflow-y: auto;
-            background-color: #ff9540;
-            bottom: 0;
-            overflow-x: hidden;
-        }
-
-        .side-nav > li > a {
-            width: 225px;
-        }
-
-        .side-nav li a:hover,
-        .side-nav li a:focus {
-            background-color: crimson !important;
-            color: #fff !important;
-        }
-    }
-
-    .side-nav > li > ul {
-        padding: 0;
-    }
-
-    .side-nav > li > ul > li > a {
-        display: block;
-        padding: 10px 15px 10px 38px;
-        text-decoration: none;
-        color: black;
-    }
-
-    .side-nav > li > ul > li > a:hover {
-        color: #fff;
-    }
-
-    .page-wrapper {
-        margin-left: 212px;
-    }
-</style>
 </body>
 </html>

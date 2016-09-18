@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Security;
 using Newtonsoft.Json;
 using BLL.Entities;
+using System.Web.Optimization;
 
 namespace MvcKnowledgeSystem
 {
@@ -19,6 +20,7 @@ namespace MvcKnowledgeSystem
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
