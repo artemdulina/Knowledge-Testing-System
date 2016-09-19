@@ -7,14 +7,13 @@
     ViewBag.Title = "Knowledge Testing System";
 }
 
-
-@section Pagination
+@section PaginationAndSearch
 {
-    @Scripts.Render("~/bundles/pagination")
+    @Scripts.Render("~/bundles/main")
 }
 
-<form action="/search" method="post">
-    <input type="text" class="form-control" placeholder="Type to start live searching">
+<form action="test/search" method="post">
+    <input id="search" type="text" class="form-control" name="search" placeholder="Type to start live searching">
 </form>
 
 <table class="table table-hover">

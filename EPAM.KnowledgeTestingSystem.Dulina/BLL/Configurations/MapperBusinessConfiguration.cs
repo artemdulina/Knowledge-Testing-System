@@ -1,7 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using BLL.Entities;
 using DAL.DataTransferObject;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using ORM;
 
 namespace BLL.Configurations
 {
@@ -24,6 +28,9 @@ namespace BLL.Configurations
                 cfg.CreateMap<QuestionEntity, DalQuestion>().ReverseMap();
                 cfg.CreateMap<AnswerEntity, DalAnswer>().ReverseMap();
                 cfg.CreateMap<ExtraUserInformationEntity, DalExtraUserInformation>().ReverseMap();
+                cfg.CreateMap<Expression<Func<TestEntity, bool>>, Expression<Func<DalTest, bool>>>().ReverseMap();
+                cfg.CreateMap<IQueryable<DalTest>, IQueryable<TestEntity>>().ReverseMap();
+                //cfg.CreateMap<IEnumerable<TestEntity>, IEnumerable<DalTest>>().ReverseMap();
             }).CreateMapper();
         }
     }

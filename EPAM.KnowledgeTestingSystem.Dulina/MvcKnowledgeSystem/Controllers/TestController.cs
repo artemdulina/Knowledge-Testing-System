@@ -83,7 +83,7 @@ namespace MvcKnowledgeSystem.Controllers
             db.Set<ExtraUserInformation>().Attach(rt);
             db.Entry(rt).State = EntityState.Modified;
             db.SaveChanges();*/
-            
+
             //userService.Update(user);
 
             TestEntity test = testService.GetTestEntity(id.GetValueOrDefault());
@@ -135,13 +135,36 @@ namespace MvcKnowledgeSystem.Controllers
 
             statistics.CorrectAnswers = countRight;
             statistics.TotalQuestions = test.Questions.Count;
-            
+
             return View(statistics);
         }
-        
+
         public string PostSome()
         {
             return "Artem Dulina";
+        }
+
+        public JsonResult Search(string searchText, int? maxResults)
+        {
+            logger.Info("searchText " + searchText);
+            logger.Info("maxResults " + maxResults);
+            if (maxResults == null || maxResults < 1)
+            {
+                maxResults = 10;
+            }
+
+            List<TestEntity> result = new List<TestEntity>() {};
+            try
+            {
+                IEnumerable<TestEntity> testsFound = testService.GetAllMatchedTests(test => test.Title.ToLower().Contains(searchText));
+                result = testsFound.ToList();
+            }
+            catch (Exception ex)
+            {
+                logger.Info(ex.Message);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

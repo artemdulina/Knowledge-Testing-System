@@ -1,7 +1,10 @@
-﻿using DAL.DataTransferObject;
+﻿using System;
+using DAL.DataTransferObject;
 using ORM;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace DAL.Configurations
 {
@@ -24,6 +27,9 @@ namespace DAL.Configurations
                 cfg.CreateMap<Question, DalQuestion>().ReverseMap();
                 cfg.CreateMap<Answer, DalAnswer>().ReverseMap();
                 cfg.CreateMap<ExtraUserInformation, DalExtraUserInformation>().ReverseMap();
+                cfg.CreateMap<Expression<Func<DalTest, bool>>, Expression<Func<Test, bool>>>().ReverseMap();
+                cfg.CreateMap<IQueryable<Test>, IQueryable<DalTest>>().ReverseMap();
+                //cfg.CreateMap<IEnumerable<Test>, IEnumerable<DalTest>>().ReverseMap();
             }).CreateMapper();
         }
     }

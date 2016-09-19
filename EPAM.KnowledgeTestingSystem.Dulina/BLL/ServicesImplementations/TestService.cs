@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using BLL.Entities;
 using BLL.Services;
 using DAL.Repository;
@@ -30,6 +32,17 @@ namespace BLL.ServicesImplementations
         {
             testRepository.DeleteById(id);
             uow.Commit(); ;
+        }
+
+        public IEnumerable<TestEntity> GetAllMatchedTests(Expression<Func<TestEntity, bool>> predicate)
+        {
+            Expression<Func<DalTest, bool>> testPredicate = MapperBusinessConfiguration.MapperInstance.
+            Map<Expression<Func<TestEntity, bool>>, Expression<Func<DalTest, bool>>>(predicate);
+
+            IEnumerable<TestEntity> resultQuery = MapperBusinessConfiguration.MapperInstance.
+                Map<IEnumerable<DalTest>, IEnumerable<TestEntity>>(testRepository.GetAllMatchedTests(testPredicate));
+
+            return resultQuery;
         }
 
         public IEnumerable<TestEntity> GetAllTestEntities()

@@ -207,7 +207,7 @@
     <Content Include="scripts\jquery-3.1.0.slim.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\pagination.js" />
-    <Content Include="scripts\testpassing.js" />
+    <Content Include="scripts\livesearch.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />

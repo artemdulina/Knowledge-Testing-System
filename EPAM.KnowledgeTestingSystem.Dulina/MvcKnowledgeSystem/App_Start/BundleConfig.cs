@@ -25,8 +25,9 @@ namespace MvcKnowledgeSystem
             bundles.Add(new ScriptBundle("~/bundles/createtest").Include(
                 "~/Scripts/createtest.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/pagination").Include(
-                "~/Scripts/pagination.js"));
+            bundles.Add(new ScriptBundle("~/bundles/main").Include(
+                "~/Scripts/pagination.js",
+                "~/Scripts/livesearch.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
